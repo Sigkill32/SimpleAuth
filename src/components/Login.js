@@ -15,7 +15,7 @@ class Login extends Component {
     await app
       .auth()
       .signInWithEmailAndPassword(username, password)
-      .then(history.push("/"))
+      // .then(history.push("/"))
       .catch(error => this.setState({ error }));
   };
 
@@ -24,12 +24,22 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
+  componentDidUpdate(prevProps) {
+    const { authenticated, history } = this.props;
+    if (authenticated !== prevProps.authenticated) {
+      history.push("/");
+      console.log(authenticated);
+    }
+  }
+
   render() {
     const { error } = this.state;
     const { authenticated } = this.props;
     return (
       <div>
         {authenticated ? (
+          <h2>Already logged IN</h2>
+        ) : (
           <>
             <input
               type='text'
@@ -46,8 +56,6 @@ class Login extends Component {
             <button onClick={this.handleLogin}>Login</button>
             <h1>{error.message}</h1>
           </>
-        ) : (
-          <h2>Already logged In</h2>
         )}
       </div>
     );

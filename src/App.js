@@ -15,8 +15,9 @@ class App extends Component {
 
   componentDidMount() {
     app.auth().onAuthStateChanged(user => {
-      if (user) this.setState({ authenticated: true, user: user });
-      else this.setState({ authenticated: false });
+      if (user) {
+        this.setState({ authenticated: true, user: user });
+      } else this.setState({ authenticated: false });
     });
   }
 
@@ -24,10 +25,9 @@ class App extends Component {
     const { authenticated, user } = this.state;
     return (
       <div>
-        <h1>Hello world</h1>
+        <h1>Simple Auth</h1>
         <BrowserRouter>
           <Nav />
-          {/* <Route exact path='/' component={Home} /> */}
           <ProtectedRoute
             exact
             path='/'

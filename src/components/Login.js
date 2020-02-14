@@ -54,7 +54,7 @@ class Login extends Component {
               onChange={this.handleChange}
             />
             <button onClick={this.handleLogin}>Login</button>
-            <h1>{error.message}</h1>
+            <h1 style={{ color: "red", marginTop: "20px" }}>{error.message}</h1>
           </>
         )}
       </div>

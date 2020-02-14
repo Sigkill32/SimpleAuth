@@ -4,7 +4,8 @@ import app from "../config/firebaseConf";
 
 class PhoneSignIn extends Component {
   state = {
-    number: ""
+    number: "",
+    code: ""
   };
 
   handleChange = e => {
@@ -20,14 +21,31 @@ class PhoneSignIn extends Component {
 
   onSignInSubmit = async () => {
     const { number } = this.state;
-    const phone = "+918861741968";
+    // const phone = "+919894616092";
     await app
       .auth()
-      .signInWithPhoneNumber(phone, window.recaptchaVerifier)
+      .signInWithPhoneNumber(number, window.recaptchaVerifier)
       .then(confirmationResult => {
         window.confirmationResult = confirmationResult;
+        console.log(confirmationResult);
       })
       .catch(error => console.log(error));
+  };
+
+  handleCode = e => {
+    const { value: code } = e.target;
+    this.setState({ code });
+  };
+
+  handleVerify = () => {
+    const { code } = this.state;
+    if (window.confirmationResult) {
+      const credential = new firebase.auth.PhoneAuthProvider.credential(
+        window.confirmationResult.verificationId,
+        code
+      );
+      app.auth().signInWithCredential(credential);
+    }
   };
 
   render() {
@@ -37,6 +55,12 @@ class PhoneSignIn extends Component {
         <button id='button' onClick={this.onSignInSubmit}>
           SignIn with phone
         </button>
+        {window.confirmationResult && (
+          <div>
+            <input type='text' onChange={this.handleCode} placeholder='OTP' />
+            <button onClick={this.handleVerify}>Verify</button>
+          </div>
+        )}
       </div>
     );
   }

@@ -26,22 +26,29 @@ class Login extends Component {
 
   render() {
     const { error } = this.state;
+    const { authenticated } = this.props;
     return (
       <div>
-        <input
-          type='text'
-          placeholder='username'
-          name='username'
-          onChange={this.handleChange}
-        />
-        <input
-          type='password'
-          placeholder='password'
-          name='password'
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleLogin}>Login</button>
-        <h1>{error.message}</h1>
+        {authenticated ? (
+          <>
+            <input
+              type='text'
+              placeholder='username'
+              name='username'
+              onChange={this.handleChange}
+            />
+            <input
+              type='password'
+              placeholder='password'
+              name='password'
+              onChange={this.handleChange}
+            />
+            <button onClick={this.handleLogin}>Login</button>
+            <h1>{error.message}</h1>
+          </>
+        ) : (
+          <h2>Already logged In</h2>
+        )}
       </div>
     );
   }

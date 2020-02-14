@@ -35,7 +35,11 @@ class App extends Component {
             authenticated={authenticated}
             user={user}
           />
-          <Route exact path='/login' component={Login} />
+          <Route
+            exact
+            path='/login'
+            render={props => <Login authenticated={authenticated} {...props} />}
+          />
           <Route exact path='/signup' component={SignUp} />
         </BrowserRouter>
       </div>

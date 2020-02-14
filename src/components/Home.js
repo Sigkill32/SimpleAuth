@@ -1,10 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import app from "firebase";
 
-const Home = () => (
-  <div>
-    <p>Home</p>
-    <Link to="/dashboard">Dashboard</Link>
-  </div>
-);
+const Home = ({ user }) => {
+  return (
+    <div>
+      <h1>Home</h1>
+      <h2>Welcome {user.email}</h2>
+      <button onClick={() => app.auth().signOut()}>signOut</button>
+    </div>
+  );
+};
+
 export default Home;

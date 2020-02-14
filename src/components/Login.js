@@ -15,7 +15,6 @@ class Login extends Component {
     await app
       .auth()
       .signInWithEmailAndPassword(username, password)
-      // .then(history.push("/"))
       .catch(error => this.setState({ error }));
   };
 
@@ -41,6 +40,7 @@ class Login extends Component {
           <h2>Already logged IN</h2>
         ) : (
           <>
+            <h2>Login</h2>
             <input
               type='text'
               placeholder='username'

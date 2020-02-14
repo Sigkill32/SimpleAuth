@@ -11,6 +11,14 @@ class SignUp extends Component {
     error: ""
   };
 
+  componentDidUpdate(prevProps) {
+    const { authenticated, history } = this.props;
+    if (authenticated !== prevProps.authenticated) {
+      history.push("/");
+      console.log(authenticated);
+    }
+  }
+
   handleSignUp = async () => {
     const { username, password } = this.state;
     const { history } = this.props;
@@ -54,8 +62,16 @@ class SignUp extends Component {
 
   render() {
     const { error } = this.state;
+    const { authenticated, user } = this.props;
     return (
       <div>
+        <h2>Sign Up</h2>
+        {authenticated && (
+          <>
+            <span>(logged in as {user.email})</span>
+            <br />
+          </>
+        )}
         <div className='email-pass'>
           <input
             type='text'
@@ -71,12 +87,15 @@ class SignUp extends Component {
           />
           <button onClick={this.handleSignUp}>SignUp</button>
         </div>
+        <br />
         <div className='google-signin'>
           <button onClick={this.handleGoogleSignIn}>Sign In with google</button>
         </div>
+        <br />
         <div className='fb-signin'>
           <button onClick={this.handleFB}>Sign in with FB</button>
         </div>
+        <br />
         <div className='phone-signin'>
           <PhoneSignIn />
         </div>

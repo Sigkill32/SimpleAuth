@@ -103,7 +103,7 @@ class SignUp extends Component {
         <div className='phone-signin'>
           <PhoneSignIn />
         </div>
-        <h1>{error.message}</h1>
+        <h1 style={{ color: "red", marginTop: "20px" }}>{error.message}</h1>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 {
   "name": "boilerplate",
-  "sideEffects": false,
+  // "sideEffects": false,
   "version": "1.0.0",
   "description": "React Boiler Plate",
   "main": "index.js",

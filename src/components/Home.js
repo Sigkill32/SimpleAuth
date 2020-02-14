@@ -3,10 +3,10 @@ import app from "firebase";
 
 const Home = ({ user }) => {
   return (
-    <div>
+    <div className='home'>
       <h1>Home</h1>
       <h2>Welcome {user.email}</h2>
-      <button onClick={() => app.auth().signOut()}>signOut</button>
+      <button onClick={() => app.auth().signOut()}>sign Out</button>
     </div>
   );
 };

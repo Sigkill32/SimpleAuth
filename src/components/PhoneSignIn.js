@@ -5,7 +5,9 @@ import app from "../config/firebaseConf";
 class PhoneSignIn extends Component {
   state = {
     number: "",
-    code: ""
+    code: "",
+    isSMSSent: false,
+    error: ""
   };
 
   handleChange = e => {
@@ -21,15 +23,14 @@ class PhoneSignIn extends Component {
 
   onSignInSubmit = async () => {
     const { number } = this.state;
-    // const phone = "+919894616092";
     await app
       .auth()
       .signInWithPhoneNumber(number, window.recaptchaVerifier)
       .then(confirmationResult => {
         window.confirmationResult = confirmationResult;
-        console.log(confirmationResult);
+        this.setState({ isSMSSent: true });
       })
-      .catch(error => console.log(error));
+      .catch(error => this.setState({ error }));
   };
 
   handleCode = e => {
@@ -45,22 +46,25 @@ class PhoneSignIn extends Component {
         code
       );
       app.auth().signInWithCredential(credential);
+      this.setState({ isSMSSent: false });
     }
   };
 
   render() {
+    const { isSMSSent, error } = this.state;
     return (
-      <div>
-        <input type='number' onChange={this.handleChange} />
+      <div className='phone-auth-container'>
+        <input type='text' onChange={this.handleChange} />
         <button id='button' onClick={this.onSignInSubmit}>
           SignIn with phone
         </button>
-        {window.confirmationResult && (
-          <div>
+        {isSMSSent && (
+          <div className='otp-container'>
             <input type='text' onChange={this.handleCode} placeholder='OTP' />
             <button onClick={this.handleVerify}>Verify</button>
           </div>
         )}
+        <h2>{error.message}</h2>
       </div>
     );
   }

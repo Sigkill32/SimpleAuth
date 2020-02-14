@@ -35,7 +35,7 @@ class Login extends Component {
     const { error } = this.state;
     const { authenticated } = this.props;
     return (
-      <div>
+      <div className='login-container'>
         {authenticated ? (
           <h2>Already logged IN</h2>
         ) : (

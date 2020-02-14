@@ -64,7 +64,7 @@ class SignUp extends Component {
     const { error } = this.state;
     const { authenticated, user } = this.props;
     return (
-      <div>
+      <div className='signup-container'>
         <h2>Sign Up</h2>
         {authenticated && (
           <>
@@ -73,6 +73,7 @@ class SignUp extends Component {
           </>
         )}
         <div className='email-pass'>
+          <h4>Sign in with email</h4>
           <input
             type='text'
             placeholder='username'
@@ -87,14 +88,17 @@ class SignUp extends Component {
           />
           <button onClick={this.handleSignUp}>SignUp</button>
         </div>
+        <h4>OR</h4>
         <br />
         <div className='google-signin'>
           <button onClick={this.handleGoogleSignIn}>Sign In with google</button>
         </div>
+        <h4>OR</h4>
         <br />
         <div className='fb-signin'>
           <button onClick={this.handleFB}>Sign in with FB</button>
         </div>
+        <h4>OR</h4>
         <br />
         <div className='phone-signin'>
           <PhoneSignIn />

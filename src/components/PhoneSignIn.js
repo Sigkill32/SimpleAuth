@@ -54,9 +54,14 @@ class PhoneSignIn extends Component {
     const { isSMSSent, error } = this.state;
     return (
       <div className='phone-auth-container'>
-        <input type='text' onChange={this.handleChange} />
+        <h4>Sign in With Phone</h4>
+        <input
+          type='text'
+          onChange={this.handleChange}
+          placeholder='Phone number'
+        />
         <button id='button' onClick={this.onSignInSubmit}>
-          SignIn with phone
+          Request OTP
         </button>
         {isSMSSent && (
           <div className='otp-container'>

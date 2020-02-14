@@ -65,3 +65,87 @@
     cursor: pointer;
   }
 }
+
+.signup-container {
+  // border: solid;
+  text-align: center;
+}
+
+.email-pass {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  input {
+    width: 250px;
+    height: 20px;
+    margin-bottom: 5px;
+  }
+  button {
+    padding: 5px;
+    width: 254px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: black;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}
+
+.google-signin {
+  margin-bottom: 15px;
+  button {
+    background-color: #4285f4;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    width: 250px;
+  }
+}
+
+.fb-signin {
+  margin-bottom: 15px;
+  button {
+    background-color: #4267b2;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    width: 250px;
+  }
+}
+
+.phone-auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input {
+    width: 250px;
+    height: 20px;
+  }
+  button {
+    padding: 5px;
+    width: 254px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: black;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}
+
+.otp-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}

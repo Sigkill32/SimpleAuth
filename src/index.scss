@@ -52,18 +52,6 @@
   h1 {
     margin: 20px;
   }
-
-  button {
-    margin: 10px;
-    padding: 10px;
-    font-weight: bold;
-    background-color: #f93b26;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
 }
 
 .signup-container {
@@ -148,4 +136,16 @@
   margin-top: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.logout-button {
+  margin: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background-color: #f93b26;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
 }

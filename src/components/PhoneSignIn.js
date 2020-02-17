@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import app from "../config/firebaseConf";
+import { app } from "../config/firebaseConf";
 
 class PhoneSignIn extends Component {
   state = {

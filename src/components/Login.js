@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import app from "../config/firebaseConf";
+import { app } from "../config/firebaseConf";
 import { withRouter } from "react-router-dom";
 
 class Login extends Component {
@@ -27,7 +27,6 @@ class Login extends Component {
     const { authenticated, history } = this.props;
     if (authenticated !== prevProps.authenticated) {
       history.push("/");
-      console.log(authenticated);
     }
   }
 

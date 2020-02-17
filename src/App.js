@@ -4,8 +4,10 @@ import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
-import app from "./config/firebaseConf";
+import { app } from "./config/firebaseConf";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Logout from "./components/Logout";
+import Posts from "./components/Posts";
 
 class App extends Component {
   state = {
@@ -25,9 +27,8 @@ class App extends Component {
     const { authenticated, user } = this.state;
     return (
       <div>
-        <h1>Simple Auth</h1>
         <BrowserRouter>
-          <Nav />
+          <Nav authenticated={authenticated} />
           <ProtectedRoute
             exact
             path='/'
@@ -46,6 +47,19 @@ class App extends Component {
             render={props => (
               <SignUp authenticated={authenticated} {...props} user={user} />
             )}
+          />
+          <ProtectedRoute
+            exact
+            path='/logout'
+            component={Logout}
+            authenticated={authenticated}
+          />
+          <Route
+            exact
+            path='/posts'
+            component={Posts}
+            // authenticated={authenticated}
+            // user={user}
           />
         </BrowserRouter>
       </div>

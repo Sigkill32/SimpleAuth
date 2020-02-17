@@ -1,16 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Nav = () => (
+const Nav = ({ authenticated }) => (
   <div className='navbar'>
     <li>
       <Link to='/'>Home</Link>
     </li>
+    {authenticated ? (
+      <li>
+        <Link to='/logout'>Logout</Link>
+      </li>
+    ) : (
+      <li>
+        <Link to='/login'>Login</Link>
+      </li>
+    )}
     <li>
-      <Link to='/login'>Login</Link>
-    </li>
-    <li>
-      <Link to='/signup'>signup</Link>
+      <Link to='/signup'>sign up</Link>
     </li>
   </div>
 );

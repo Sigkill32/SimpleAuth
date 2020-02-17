@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import app from "../config/firebaseConf";
+import { app } from "../config/firebaseConf";
 import firebase from "firebase";
 import PhoneSignIn from "./PhoneSignIn";
 import { withRouter } from "react-router-dom";

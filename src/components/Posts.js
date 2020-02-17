@@ -122,6 +122,7 @@ class Posts extends Component {
 
   render() {
     const { posts } = this.state;
+    const { user } = this.props;
     return (
       <div className='posts-container'>
         <h1>Posts</h1>
@@ -131,6 +132,8 @@ class Posts extends Component {
             post={post.post}
             key={post.postId}
             postId={post.postId}
+            currentUser={user}
+            uid={post.uid}
             onHandleDelete={this.handleDelete}
             onHandleEdit={this.handlePostEdit}
           />

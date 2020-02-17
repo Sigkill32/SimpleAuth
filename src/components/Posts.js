@@ -70,7 +70,26 @@ class Posts extends Component {
     closeModal();
   };
 
+  handleEditSave = (id, index) => {
+    const { head, body, posts } = this.state;
+    db.collection("Posts")
+      .where("postId", "==", id)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          db.collection("Posts")
+            .doc(doc.id)
+            .update({ post: { head: head, body: body } });
+        });
+      });
+    let newPosts = [...posts];
+    newPosts[index].post.head = head;
+    newPosts[index].post.body = body;
+    this.setState({ posts: newPosts });
+  };
+
   handleDelete = id => {
+    doc.id, " => ", doc;
     db.collection("Posts")
       .where("postId", "==", id)
       .get()
@@ -84,6 +103,45 @@ class Posts extends Component {
       .then(() => console.log("deleted"));
     const posts = this.state.posts.filter(post => post.postId !== id);
     this.setState({ posts });
+  };
+
+  handlePostEdit = id => {
+    const { posts } = this.state;
+    const index = posts.findIndex(post => post.postId === id);
+    const post = posts[index];
+    this.setState({ head: post.post.head, body: post.post.body });
+    const { head, body } = this.state;
+
+    openModal({
+      head: () => (
+        <div style={{ width: "80%", padding: "10px" }}>
+          <input
+            style={{ width: "100%", border: "none" }}
+            type='text'
+            onChange={this.handleEdit}
+            placeholder='Post heading'
+            value={head}
+            name='head'
+          />
+        </div>
+      ),
+      body: () => (
+        <textarea
+          style={{ width: "100%", border: "none", padding: "10px" }}
+          type='text'
+          onChange={this.handleEdit}
+          placeholder='post body'
+          rows='20'
+          value={body}
+          name='body'
+        />
+      ),
+      footer: () => (
+        <div>
+          <button onClick={() => this.handleEditSave(id, index)}>Save</button>
+        </div>
+      )
+    });
   };
 
   handleModalOpener = () => {

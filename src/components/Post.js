@@ -1,7 +1,8 @@
 import React from "react";
 
-const Post = ({ post }) => {
-  const { head, body, postId } = post;
+const Post = ({ post, postId, onHandleDelete, onHandleEdit }) => {
+  const { head, body } = post;
+  console.log(post);
   return (
     <div>
       <h1>{head}</h1>

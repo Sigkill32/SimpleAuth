@@ -18,6 +18,11 @@ const Nav = ({ authenticated }) => (
     <li>
       <Link to='/signup'>sign up</Link>
     </li>
+    {authenticated && (
+      <li>
+        <Link to='/posts'>Posts</Link>
+      </li>
+    )}
   </div>
 );
 

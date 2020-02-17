@@ -54,12 +54,12 @@ class App extends Component {
             component={Logout}
             authenticated={authenticated}
           />
-          <Route
+          <ProtectedRoute
             exact
             path='/posts'
             component={Posts}
-            // authenticated={authenticated}
-            // user={user}
+            authenticated={authenticated}
+            user={user}
           />
         </BrowserRouter>
       </div>

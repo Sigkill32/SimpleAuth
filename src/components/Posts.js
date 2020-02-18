@@ -11,12 +11,39 @@ class Posts extends Component {
     isFormVisible: false,
     actionType: "none",
     currentPostId: null,
-    currentIndex: null
+    currentIndex: null,
+    postIds: []
   };
 
   componentDidMount() {
     this.getData();
+    this.getDocIds();
   }
+
+  getDocIds = async () => {
+    let postIds;
+    const { user } = this.props;
+    await db
+      .collection("Users")
+      .doc(user.uid)
+      .get()
+      .then(doc => (postIds = doc.data().postIds));
+    console.log(postIds);
+    this.setState(postIds);
+  };
+
+  writeUserDoc = async postIds => {
+    const { user } = this.props;
+    await db
+      .collection("Users")
+      .doc(user.uid)
+      .set(
+        {
+          postIds: postIds
+        },
+        { merge: true }
+      );
+  };
 
   getData = async () => {
     let posts = [];
@@ -32,7 +59,7 @@ class Posts extends Component {
         })
       );
       this.setState({ posts });
-      console.log(posts);
+      // console.log(posts);
     } catch (error) {
       console.log(error);
     }
@@ -74,14 +101,23 @@ class Posts extends Component {
   };
 
   handleCreateSave = () => {
-    const { head, body } = this.state;
+    const { head, body, postIds } = this.state;
     const { user } = this.props;
     const postId = this.getId();
     const post = { head, body };
     const postObj = { uid: user.uid, post, postId };
     const posts = [...this.state.posts, postObj];
+    const newPostIds = [...postIds];
+    newPostIds.push(postId);
     this.writeData(user.uid, post, postId);
-    this.setState({ posts, actionType: "none", isFormVisible: false });
+    this.setState({
+      posts,
+      actionType: "none",
+      isFormVisible: false,
+      postIds: newPostIds
+    });
+    console.log(newPostIds);
+    this.writeUserDoc(newPostIds);
   };
 
   handleEditSave = () => {

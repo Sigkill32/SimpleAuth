@@ -4,7 +4,7 @@ import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
-import { app } from "./config/firebaseConf";
+import { app, db } from "./config/firebaseConf";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Logout from "./components/Logout";
 import Posts from "./components/Posts";
@@ -19,9 +19,17 @@ class App extends Component {
     app.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ authenticated: true, user: user });
+        this.writeIds(user);
       } else this.setState({ authenticated: false });
     });
   }
+
+  writeIds = async user => {
+    await db
+      .collection("Users")
+      .doc(user.uid)
+      .set({ postIds: [] }, { merge: true });
+  };
 
   render() {
     const { authenticated, user } = this.state;

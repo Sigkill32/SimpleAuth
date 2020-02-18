@@ -24,7 +24,9 @@ class SignUp extends Component {
     await app
       .auth()
       .createUserWithEmailAndPassword(username, password)
-      .then(history.push("/"))
+      .then(result => {
+        console.log(result);
+      })
       .catch(error => this.setState({ error }));
   };
 
@@ -42,7 +44,6 @@ class SignUp extends Component {
         const token = result.credential.accessToken;
         const user = result.user;
         console.log(user, token, result);
-        this.writeData(user.uid);
       })
       .catch(error => this.setState({ error }));
   };
@@ -56,7 +57,6 @@ class SignUp extends Component {
         const token = result.credential.accessToken;
         const user = result.user;
         console.log(user, token, result);
-        this.writeData(user.uid);
       })
       .catch(error => this.setState({ error }));
   };

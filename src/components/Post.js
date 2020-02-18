@@ -17,13 +17,13 @@ const Post = ({
       <div className='post-ctrl'>
         <button
           onClick={() => onHandleEdit(postId)}
-          disabled={uid === currentUser}
+          disabled={uid !== currentUser.uid}
         >
           Edit
         </button>
         <button
           onClick={() => onHandleDelete(postId)}
-          disabled={uid === currentUser}
+          disabled={uid !== currentUser.uid}
         >
           Delete
         </button>

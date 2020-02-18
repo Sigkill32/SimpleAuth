@@ -158,7 +158,9 @@ class Posts extends Component {
       })
       .then(() => console.log("deleted"));
     const posts = this.state.posts.filter(post => post.postId !== id);
-    this.setState({ posts });
+    const newPostIds = this.state.postIds.filter(postId => postId !== id);
+    this.setState({ posts, postIds: newPostIds });
+    this.writeUserDoc(newPostIds);
   };
 
   handleClose = () => {

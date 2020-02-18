@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 
 const Nav = ({ authenticated }) => (
   <div className='navbar'>
-    <li>
-      <Link to='/'>Home</Link>
-    </li>
+    {authenticated && (
+      <li>
+        <Link to='/'>Home</Link>
+      </li>
+    )}
     {authenticated ? (
       <li>
         <Link to='/logout'>Logout</Link>
@@ -15,9 +17,11 @@ const Nav = ({ authenticated }) => (
         <Link to='/login'>Login</Link>
       </li>
     )}
-    <li>
-      <Link to='/signup'>sign up</Link>
-    </li>
+    {!authenticated && (
+      <li>
+        <Link to='/signup'>sign up</Link>
+      </li>
+    )}
     {authenticated && (
       <li>
         <Link to='/posts'>Posts</Link>

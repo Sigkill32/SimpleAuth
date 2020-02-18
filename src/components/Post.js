@@ -9,21 +9,21 @@ const Post = ({
   onHandleEdit
 }) => {
   const { head, body } = post;
-  console.log(post);
+  // console.log(post);
   return (
-    <div>
+    <div className='post-container'>
       <h1>{head}</h1>
       <p>{body}</p>
       <div className='post-ctrl'>
         <button
           onClick={() => onHandleEdit(postId)}
-          disabled={uid !== currentUser.uid}
+          style={{ display: uid !== currentUser.uid ? "none" : "inline-block" }}
         >
           Edit
         </button>
         <button
           onClick={() => onHandleDelete(postId)}
-          disabled={uid !== currentUser.uid}
+          style={{ display: uid !== currentUser.uid ? "none" : "inline-block" }}
         >
           Delete
         </button>

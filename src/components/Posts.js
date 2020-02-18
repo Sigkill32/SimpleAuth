@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import { db } from "../config/firebaseConf";
 import { openModal, closeModal } from "react-stateless-modal";
 import Post from "./Post";
+import PostForm from "./PostForm";
 
 class Posts extends Component {
   state = {
     posts: [],
     head: "",
-    body: ""
+    body: "",
+    isFormVisible: false,
+    actionType: "none",
+    currentPostId: null,
+    currentIndex: null
   };
 
   componentDidMount() {
@@ -35,7 +40,11 @@ class Posts extends Component {
   };
 
   getId = () => {
-    return Math.floor(Math.random() * 10000 + 1);
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
+      const r = (Math.random() * 16) | 0,
+        v = c == "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
   };
 
   writeData = async (uid, post, postId) => {
@@ -59,19 +68,32 @@ class Posts extends Component {
   };
 
   handleSave = () => {
+    const { actionType } = this.state;
+    if (actionType === "edit") this.handleEditSave();
+    if (actionType === "create") this.handleCreateSave();
+    else this.setState({ actionType: "none" });
+  };
+
+  handleCreateSave = () => {
     const { head, body } = this.state;
     const { user } = this.props;
     const postId = this.getId();
     const post = { head, body };
     const postObj = { uid: user.uid, post, postId };
     const posts = [...this.state.posts, postObj];
-    this.setState({ posts });
     this.writeData(user.uid, post, postId);
-    closeModal();
+    this.setState({ posts, actionType: "none", isFormVisible: false });
   };
 
-  handleEditSave = (id, index) => {
-    const { head, body, posts } = this.state;
+  handleEditSave = () => {
+    console.log("edit");
+    const {
+      head,
+      body,
+      posts,
+      currentPostId: id,
+      currentIndex: index
+    } = this.state;
     db.collection("Posts")
       .where("postId", "==", id)
       .get()
@@ -85,11 +107,10 @@ class Posts extends Component {
     let newPosts = [...posts];
     newPosts[index].post.head = head;
     newPosts[index].post.body = body;
-    this.setState({ posts: newPosts });
+    this.setState({ posts: newPosts, isFormVisible: false });
   };
 
   handleDelete = id => {
-    doc.id, " => ", doc;
     db.collection("Posts")
       .where("postId", "==", id)
       .get()
@@ -105,86 +126,48 @@ class Posts extends Component {
     this.setState({ posts });
   };
 
+  handleClose = () => {
+    this.setState({ isFormVisible: false });
+  };
+
   handlePostEdit = id => {
     const { posts } = this.state;
     const index = posts.findIndex(post => post.postId === id);
     const post = posts[index];
-    this.setState({ head: post.post.head, body: post.post.body });
-    const { head, body } = this.state;
-
-    openModal({
-      head: () => (
-        <div style={{ width: "80%", padding: "10px" }}>
-          <input
-            style={{ width: "100%", border: "none" }}
-            type='text'
-            onChange={this.handleEdit}
-            placeholder='Post heading'
-            value={head}
-            name='head'
-          />
-        </div>
-      ),
-      body: () => (
-        <textarea
-          style={{ width: "100%", border: "none", padding: "10px" }}
-          type='text'
-          onChange={this.handleEdit}
-          placeholder='post body'
-          rows='20'
-          value={body}
-          name='body'
-        />
-      ),
-      footer: () => (
-        <div>
-          <button onClick={() => this.handleEditSave(id, index)}>Save</button>
-        </div>
-      )
+    this.setState({
+      head: post.post.head,
+      body: post.post.body,
+      isFormVisible: true,
+      actionType: "edit",
+      currentPostId: id,
+      currentIndex: index
     });
   };
 
-  handleModalOpener = () => {
-    // const { head, body } = this.state;
-    openModal({
-      head: () => (
-        <div style={{ width: "80%", padding: "10px" }}>
-          <input
-            style={{ width: "100%", border: "none" }}
-            type='text'
-            onChange={this.handleEdit}
-            placeholder='Post heading'
-            // value={head}
-            name='head'
-          />
-        </div>
-      ),
-      body: () => (
-        <textarea
-          style={{ width: "100%", border: "none", padding: "10px" }}
-          type='text'
-          onChange={this.handleEdit}
-          placeholder='post body'
-          rows='20'
-          //   value={body}
-          name='body'
-        />
-      ),
-      footer: () => (
-        <div>
-          <button onClick={this.handleSave}>Save</button>
-        </div>
-      )
+  handleAddPost = () => {
+    this.setState({
+      isFormVisible: true,
+      actionType: "create",
+      head: "",
+      body: ""
     });
   };
 
   render() {
-    const { posts } = this.state;
+    const { posts, isFormVisible, head, body, isCreate, isEdit } = this.state;
     const { user } = this.props;
     return (
       <div className='posts-container'>
         <h1>Posts</h1>
-        <button onClick={this.handleModalOpener}>add post</button>
+        <button onClick={this.handleAddPost}>add post</button>
+        <PostForm
+          isFormVisible={isFormVisible}
+          onHandleSave={this.handleSave}
+          onHandleClose={this.handleClose}
+          onHandleChange={this.handleEdit}
+          head={head}
+          body={body}
+        />
         {posts.map(post => (
           <Post
             post={post.post}

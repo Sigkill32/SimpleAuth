@@ -48,9 +48,9 @@
 }
 
 .home {
-  text-align: center;
   h1 {
     margin: 20px;
+    text-align: center;
   }
 }
 
@@ -148,4 +148,34 @@
   color: white;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.post-container {
+  padding: 10px;
+  border: 0.5px dotted black;
+  margin: 10px 2px;
+  border-radius: 5px;
+  h1 {
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+.post-ctrl {
+  button {
+    margin: 0 5px;
+    padding: 5px;
+  }
+}
+
+.post-form {
+  input {
+    width: 95%;
+  }
+  textarea {
+    width: 95%;
+  }
 }

@@ -15,7 +15,6 @@ class SignUp extends Component {
     const { authenticated, history } = this.props;
     if (authenticated !== prevProps.authenticated) {
       history.push("/");
-      console.log(authenticated);
     }
   }
 
@@ -43,6 +42,7 @@ class SignUp extends Component {
         const token = result.credential.accessToken;
         const user = result.user;
         console.log(user, token, result);
+        this.writeData(user.uid);
       })
       .catch(error => this.setState({ error }));
   };
@@ -56,8 +56,19 @@ class SignUp extends Component {
         const token = result.credential.accessToken;
         const user = result.user;
         console.log(user, token, result);
+        this.writeData(user.uid);
       })
       .catch(error => this.setState({ error }));
+  };
+
+  writeData = async uid => {
+    try {
+      await db.collection("Users").add({
+        uid: uid
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { db } from "../config/firebaseConf";
-import { openModal, closeModal } from "react-stateless-modal";
 import Post from "./Post";
 import PostForm from "./PostForm";
 
@@ -158,8 +157,14 @@ class Posts extends Component {
     const { user } = this.props;
     return (
       <div className='posts-container'>
-        <h1>Posts</h1>
-        <button onClick={this.handleAddPost}>add post</button>
+        <h1 style={{ textAlign: "center" }}>Posts</h1>
+        <button
+          onClick={this.handleAddPost}
+          className='add-post'
+          disabled={isFormVisible}
+        >
+          Add Post
+        </button>
         <PostForm
           isFormVisible={isFormVisible}
           onHandleSave={this.handleSave}

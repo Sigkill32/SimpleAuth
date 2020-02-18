@@ -59,6 +59,10 @@
   text-align: center;
 }
 
+.profile {
+  margin: 10px 0;
+}
+
 .email-pass {
   padding: 10px;
   display: flex;
@@ -148,12 +152,14 @@
   color: white;
   text-transform: uppercase;
   cursor: pointer;
+  float: right;
 }
 
 .post-container {
+  width: 90%;
   padding: 10px;
   border: 0.5px dotted black;
-  margin: 10px 2px;
+  margin: 10px 5%;
   border-radius: 5px;
   h1 {
     margin-bottom: 5px;
@@ -172,10 +178,19 @@
 }
 
 .post-form {
+  text-align: center;
+  margin: 10px 0;
   input {
     width: 95%;
   }
   textarea {
     width: 95%;
   }
+}
+
+.add-post {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
 }

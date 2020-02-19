@@ -29,3 +29,7 @@ npm run lint
 ```javascript
 npm run build
 ```
+
+### Visit
+
+https://app.netlify.com/sites/simpleauth

@@ -18,12 +18,14 @@ const Post = ({
         <button
           onClick={() => onHandleEdit(postId)}
           style={{ display: uid !== currentUser.uid ? "none" : "inline-block" }}
+          className='edit-btn'
         >
           Edit
         </button>
         <button
           onClick={() => onHandleDelete(postId)}
           style={{ display: uid !== currentUser.uid ? "none" : "inline-block" }}
+          className='delete-btn'
         >
           Delete
         </button>

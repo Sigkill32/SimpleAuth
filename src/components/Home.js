@@ -21,7 +21,7 @@ const Home = ({ user }) => {
       </div>
       <div className='activity'>
         <h2>Activity</h2>
-        <Link to='/posts'>View Posts</Link>
+        <Link to='/posts'>View Posts ➤</Link>
       </div>
     </div>
   );

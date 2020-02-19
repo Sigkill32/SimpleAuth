@@ -29,8 +29,12 @@ const PostForm = ({
         value={body}
       />
       <div className='post-form-ctrl'>
-        <button onClick={onHandleSave}>save</button>
-        <button onClick={onHandleClose}>close</button>
+        <button onClick={onHandleSave} className='save-btn'>
+          save
+        </button>
+        <button onClick={onHandleClose} className='close-btn'>
+          close
+        </button>
       </div>
     </div>
   );

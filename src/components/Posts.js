@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { db } from "../config/firebaseConf";
 import Post from "./Post";
 import PostForm from "./PostForm";
+import addBtn from "../images/plus.svg";
 
 class Posts extends Component {
   state = {
@@ -201,7 +202,7 @@ class Posts extends Component {
           className='add-post'
           disabled={isFormVisible}
         >
-          Add Post
+          <img src={addBtn} alt='' />
         </button>
         <PostForm
           isFormVisible={isFormVisible}

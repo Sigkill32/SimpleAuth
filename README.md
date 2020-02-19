@@ -29,8 +29,3 @@ npm run lint
 ```javascript
 npm run build
 ```
-
-
-
-
-

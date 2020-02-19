@@ -170,7 +170,9 @@
   color: white;
   text-transform: uppercase;
   cursor: pointer;
-  float: right;
+  position: absolute;
+  right: 30px;
+  top: 0;
 }
 
 .post-container {
